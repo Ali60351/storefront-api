@@ -1,12 +1,6 @@
 import Model from './model';
 import bcrypt from 'bcrypt';
-
-export interface StoreUser {
-  id?: number;
-  firstName: string;
-  lastName: string;
-  password: string;
-}
+import { StoreUser } from '../types';
 
 const pepper = process.env.BCRYPT_PASSWORD;
 const saltRounds = Number(process.env.SALT_ROUNDS)
