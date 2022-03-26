@@ -1,20 +1,21 @@
 import { Router } from "express";
 import jwt from 'jsonwebtoken';
 
-import UserStore, { StoreUser } from '../models/store_user';
-import { validateUser } from "./validators";
+import UserStore from '../models/store_user';
+import { StoreUser } from "../types";
+import { requireAuth, validateUser } from "./validators";
 
 const app = Router();
 const store = new UserStore();
 
 const secret = process.env.JWT_SECRET as string;
 
-app.get('/', async (req, res) => {
+app.get('/', requireAuth, async (req, res) => {
   const results = await store.index();
   res.json(results);
 });
 
-app.get('/:id', async (req, res) => {
+app.get('/:id', requireAuth, async (req, res) => {
   const { id } = req.params;
 
   const results = await store.show(id);
@@ -34,14 +35,7 @@ app.post('/', validateUser, async (req, res) => {
   }
 });
 
-app.delete('/:id', async (req, res) => {
-  const { id } = req.params;
-
-  const results = await store.delete(id);
-  res.json(results);
-});
-
-app.delete('/:id', async (req, res) => {
+app.delete('/:id', requireAuth, async (req, res) => {
   const { id } = req.params;
 
   const results = await store.delete(id);

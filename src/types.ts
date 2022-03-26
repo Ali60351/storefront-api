@@ -27,7 +27,7 @@ export interface Token extends JwtPayload {
 }
 
 export interface AuthToken extends Token {
-  user: StoreUser,
+  user: Required<StoreUser>,
   type: 'USER_AUTH'
 }
 
