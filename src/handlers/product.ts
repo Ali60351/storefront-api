@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { requireAuth } from './validators';
+import { requireAuth, validateProduct } from './validators';
 import ProductStore from '../models/product';
 import { Product } from '../types';
 
@@ -19,11 +19,11 @@ app.get('/:id', async (req, res) => {
   res.json(results);
 });
 
-app.post('/', requireAuth, async (req, res) => {
+app.post('/', requireAuth, validateProduct, async (req, res) => {
   const product: Product = req.body;
 
   const results = await store.create(product);
-  return results;
+  res.json(results);
 });
 
 export default app;

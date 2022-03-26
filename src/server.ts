@@ -13,10 +13,10 @@ const address: string = "0.0.0.0:3000"
 app.use(cors())
 app.use(bodyParser.json())
 
-app.use('/user', userRoutes);
-app.use('/product', productRoutes);
-app.use('/product-order', productOrderRoutes);
-app.use('/cart', cartRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/product', productRoutes);
+app.use('/api/product-order', productOrderRoutes);
+app.use('/api/cart', cartRoutes);
 
 app.get('/', (req, res) => {
     res.send('Hello World!')

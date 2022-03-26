@@ -16,6 +16,16 @@ export const validateUser: MiddlewareFunction = (req, res, next) => {
   }
 };
 
+export const validateProduct: MiddlewareFunction = (req, res, next) => {
+  const requiredFields = ['name', 'price'];
+  if (requiredFields.some(field => !req.body[field])) {
+    res.status(400);
+    res.json({ requiredFields: requiredFields });
+  } else {
+    next();
+  }
+};
+
 export const requireAuth: MiddlewareFunction = (req, res, next) => {
   const { authorization } = req.headers;
 

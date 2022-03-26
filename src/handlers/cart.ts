@@ -16,7 +16,7 @@ app.get('/', requireAuth, async (req, res) => {
   const verifiedToken = jwt.verify(token, secret) as AuthToken;
 
   const results = await cartService.getOrdersForUser(String(verifiedToken.user.id));
-  return results;
+  res.json(results);
 });
 
 export default app;

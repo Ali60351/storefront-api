@@ -11,19 +11,27 @@ const store = new ProductOrderStore();
 const secret = process.env.JWT_SECRET as string;
 
 app.post('/', requireAuth, async (req, res) => {
-  const productOrder: ProductOrder = req.body;
-  const authHeader = req.headers.authorization as string;
+  try {
+    const productOrder: ProductOrder = req.body;
+    const authHeader = req.headers.authorization as string;
 
-  const [_, token] = authHeader.split(' ');
-  const verifiedToken = jwt.verify(token, secret) as AuthToken;
+    const [_, token] = authHeader.split(' ');
+    const verifiedToken = jwt.verify(token, secret) as AuthToken;
 
-  if (verifiedToken.user.id === productOrder.user_id) {
-    res.status(403);
-    res.json({ "error": "Cannot modify other user's cart!" })
+    if (verifiedToken.user.id !== productOrder.user_id) {
+      res.status(403);
+      res.json({ "error": "Cannot modify other user's cart!" });
+      return;
+    }
+
+    const results = await store.create(productOrder);
+
+    res.status(201);
+    res.json(results);
+  } catch (err) {
+    res.status(400);
+    res.json({"error": "Unable to add to cart"})
   }
-
-  const results = await store.create(productOrder);
-  return results;
 });
 
 export default app;
