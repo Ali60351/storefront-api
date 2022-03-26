@@ -13,7 +13,7 @@ export default class UserStore extends Model {
 
   show = async (id: string): Promise<StoreUser> => await this.execute(
     'SELECT * FROM store_user WHERE id=($1)',
-    'rows',
+    'rows.0',
     [id]
   );
 
@@ -29,7 +29,7 @@ export default class UserStore extends Model {
 
   delete = async (id: string): Promise<StoreUser> => await this.execute(
     'DELETE FROM store_user WHERE id=($1)',
-    'rows',
+    'rows.0',
     [id]
   );
 

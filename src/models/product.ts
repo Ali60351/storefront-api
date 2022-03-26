@@ -1,9 +1,5 @@
 import Model from './model';
-import bcrypt from 'bcrypt';
 import { Product } from '../types';
-
-const pepper = process.env.BCRYPT_PASSWORD;
-const saltRounds = Number(process.env.SALT_ROUNDS)
 
 export default class UserStore extends Model {
   index = async (): Promise<Product[]> => await this.execute(
@@ -13,7 +9,7 @@ export default class UserStore extends Model {
 
   show = async (id: string): Promise<Product> => await this.execute(
     'SELECT * FROM product WHERE id=($1)',
-    'rows',
+    'rows.0',
     [id]
   );
 
@@ -35,7 +31,7 @@ export default class UserStore extends Model {
 
   delete = async (id: string): Promise<Product> => await this.execute(
     'DELETE FROM product WHERE id=($1)',
-    'rows',
+    'rows.0',
     [id]
   );
 }
