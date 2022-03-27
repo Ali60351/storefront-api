@@ -1,0 +1,324 @@
+{
+	"info": {
+		"_postman_id": "e1d94f9c-e1a3-41cd-978b-f59bd106b44a",
+		"name": "Storefront API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Index User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJmaXJzdG5hbWUiOiJqb2huIiwibGFzdG5hbWUiOiJkb2UiLCJwYXNzd29yZCI6IiQyYiQxMCRaRWFCZjFhbFQuZnRNU0tnY1BrZ1guZ2xJVVZTbGdVdmMxWWlmYjVjYk85ZjhOVXRZLms1dSJ9LCJ0eXBlIjoiVVNFUl9BVVRIIiwiaWF0IjoxNjQ4MzEzNjE0fQ.0Ynzn1jEbIt_i_9UdD1Pz59UZau0NlUfm0DWBXOR_P4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJmaXJzdG5hbWUiOiJqb2huIiwibGFzdG5hbWUiOiJkb2UiLCJwYXNzd29yZCI6IiQyYiQxMCRaRWFCZjFhbFQuZnRNU0tnY1BrZ1guZ2xJVVZTbGdVdmMxWWlmYjVjYk85ZjhOVXRZLms1dSJ9LCJ0eXBlIjoiVVNFUl9BVVRIIiwiaWF0IjoxNjQ4MzEzNjE0fQ.0Ynzn1jEbIt_i_9UdD1Pz59UZau0NlUfm0DWBXOR_P4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/user/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Auth User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"john\",\n    \"lastName\": \"doe\",\n    \"password\": \"12345678\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/user/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"user",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"john\",\n    \"lastName\": \"doe\",\n    \"password\": \"12345678\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Product",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJmaXJzdG5hbWUiOiJqb2huIiwibGFzdG5hbWUiOiJkb2UiLCJwYXNzd29yZCI6IiQyYiQxMCRaRWFCZjFhbFQuZnRNU0tnY1BrZ1guZ2xJVVZTbGdVdmMxWWlmYjVjYk85ZjhOVXRZLms1dSJ9LCJ0eXBlIjoiVVNFUl9BVVRIIiwiaWF0IjoxNjQ4MzEzNjE0fQ.0Ynzn1jEbIt_i_9UdD1Pz59UZau0NlUfm0DWBXOR_P4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"football\",\n    \"price\": 150\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/product",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Index Product",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJmaXJzdG5hbWUiOiJqb2huIiwibGFzdG5hbWUiOiJkb2UiLCJwYXNzd29yZCI6IiQyYiQxMCRaRWFCZjFhbFQuZnRNU0tnY1BrZ1guZ2xJVVZTbGdVdmMxWWlmYjVjYk85ZjhOVXRZLms1dSJ9LCJ0eXBlIjoiVVNFUl9BVVRIIiwiaWF0IjoxNjQ4MzEzNjE0fQ.0Ynzn1jEbIt_i_9UdD1Pz59UZau0NlUfm0DWBXOR_P4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"football\",\n    \"price\": 150\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/product",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show Product",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJmaXJzdG5hbWUiOiJqb2huIiwibGFzdG5hbWUiOiJkb2UiLCJwYXNzd29yZCI6IiQyYiQxMCRaRWFCZjFhbFQuZnRNU0tnY1BrZ1guZ2xJVVZTbGdVdmMxWWlmYjVjYk85ZjhOVXRZLms1dSJ9LCJ0eXBlIjoiVVNFUl9BVVRIIiwiaWF0IjoxNjQ4MzEzNjE0fQ.0Ynzn1jEbIt_i_9UdD1Pz59UZau0NlUfm0DWBXOR_P4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"football\",\n    \"price\": 150\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/product/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"product",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Product Order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJmaXJzdG5hbWUiOiJqb2huIiwibGFzdG5hbWUiOiJkb2UiLCJwYXNzd29yZCI6IiQyYiQxMCRaRWFCZjFhbFQuZnRNU0tnY1BrZ1guZ2xJVVZTbGdVdmMxWWlmYjVjYk85ZjhOVXRZLms1dSJ9LCJ0eXBlIjoiVVNFUl9BVVRIIiwiaWF0IjoxNjQ4MzEzNjE0fQ.0Ynzn1jEbIt_i_9UdD1Pz59UZau0NlUfm0DWBXOR_P4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\": 1,\n    \"product_id\": 1,\n    \"quantity\": 1,\n    \"status\": \"active\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/product-order/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"product-order",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Orders for User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJmaXJzdG5hbWUiOiJqb2huIiwibGFzdG5hbWUiOiJkb2UiLCJwYXNzd29yZCI6IiQyYiQxMCRaRWFCZjFhbFQuZnRNU0tnY1BrZ1guZ2xJVVZTbGdVdmMxWWlmYjVjYk85ZjhOVXRZLms1dSJ9LCJ0eXBlIjoiVVNFUl9BVVRIIiwiaWF0IjoxNjQ4MzEzNjE0fQ.0Ynzn1jEbIt_i_9UdD1Pz59UZau0NlUfm0DWBXOR_P4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/cart/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"cart",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
