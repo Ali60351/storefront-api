@@ -24,8 +24,8 @@ app.get('/:id', requireAuth, async (req, res) => {
 
 app.post('/', validateUser, async (req, res) => {
   try {
-    const { firstName, lastName, password } = req.body;
-    const user: StoreUser = await store.create({ firstName, lastName, password });
+    const { first_name, last_name, password } = req.body;
+    const user: StoreUser = await store.create({ first_name, last_name, password });
 
     const token = jwt.sign({ user, type: 'USER_AUTH' }, secret);
     res.json(token);
@@ -43,8 +43,8 @@ app.delete('/:id', requireAuth, async (req, res) => {
 });
 
 app.post('/auth', validateUser, async (req, res) => {
-  const { firstName, lastName, password } = req.body;
-  const result = await store.authenticate({ firstName, lastName, password });
+  const { first_name, last_name, password } = req.body;
+  const result = await store.authenticate({ first_name, last_name, password });
 
   if (typeof result === 'string') {
     res.json(result);

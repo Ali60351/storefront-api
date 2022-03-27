@@ -21,9 +21,9 @@ export default class UserStore extends Model {
     const password = bcrypt.hashSync(user.password + pepper, saltRounds);
 
     return await this.execute(
-      'INSERT INTO store_user (firstName, lastName, password) VALUES($1, $2, $3) RETURNING *',
+      'INSERT INTO store_user (first_name, last_name, password) VALUES($1, $2, $3) RETURNING *',
       'rows.0',
-      [user.firstName, user.lastName, password]
+      [user.first_name, user.last_name, password]
     );
   }
 
@@ -35,9 +35,9 @@ export default class UserStore extends Model {
 
   authenticate = async (user: StoreUser) => {
     const result: StoreUser = await this.execute(
-      'SELECT * FROM store_user WHERE firstName=($1) AND lastName=($2)',
+      'SELECT * FROM store_user WHERE first_name=($1) AND last_name=($2)',
       'rows.0',
-      [user.firstName, user.lastName]
+      [user.first_name, user.last_name]
     );
 
     if (!result) {

@@ -16,7 +16,7 @@ export default class ProductStore extends Model {
   create = async (product: Product): Promise<Product> => {
     if (product.category) {
       return await this.execute(
-        'INSERT INTO product (firstName, lastName, password) VALUES($1, $2, $3) RETURNING *',
+        'INSERT INTO product (name, price, category) VALUES($1, $2, $3) RETURNING *',
         'rows.0',
         [product.name, product.price, product.category]
       );
