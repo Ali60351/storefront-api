@@ -28,7 +28,7 @@ const productOrder: ProductOrder = {
   status: 'active'
 }
 
-describe('Test the product order model', () => {
+describe('Test the cart service', () => {
   let userId: number;
   let productId: number;
   let productOrderId: number;

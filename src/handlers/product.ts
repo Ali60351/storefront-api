@@ -21,8 +21,9 @@ app.get('/:id', async (req, res) => {
 
 app.post('/', requireAuth, validateProduct, async (req, res) => {
   const product: Product = req.body;
-
   const results = await store.create(product);
+
+  res.status(201);
   res.json(results);
 });
 

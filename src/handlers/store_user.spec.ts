@@ -1,12 +1,10 @@
 import jwt from 'jsonwebtoken';
 import request from 'supertest';
 import app from '../server';
-import UserStore from '../models/store_user';
 
 import { AuthToken, StoreUser } from '../types';
 
 const secret = process.env.JWT_SECRET as string;
-const userStore = new UserStore();
 
 const user: StoreUser = {
   'first_name': 'Sam',
