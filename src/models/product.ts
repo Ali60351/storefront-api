@@ -1,7 +1,7 @@
 import Model from './model';
 import { Product } from '../types';
 
-export default class UserStore extends Model {
+export default class ProductStore extends Model {
   index = async (): Promise<Product[]> => await this.execute(
     'SELECT * FROM product',
     'rows'
@@ -30,7 +30,7 @@ export default class UserStore extends Model {
   }
 
   delete = async (id: string): Promise<Product> => await this.execute(
-    'DELETE FROM product WHERE id=($1)',
+    'DELETE FROM product WHERE id=($1) RETURNING *',
     'rows.0',
     [id]
   );

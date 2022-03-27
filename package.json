@@ -5,7 +5,7 @@
   "main": "src/server.ts",
   "scripts": {
     "watch": "nodemon src/server.ts",
-    "test": "NODE_ENV=test db-migrate --env test up && NODE_ENV=test ts-node node_modules/jasmine/bin/jasmine && db-migrate db:drop test",
+    "test": "db-migrate --env test reset && db-migrate --env test up && NODE_ENV=test ts-node node_modules/jasmine/bin/jasmine",
     "tsc": "tsc"
   },
   "author": "Udacity",
