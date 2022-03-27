@@ -28,7 +28,7 @@ export default class UserStore extends Model {
   }
 
   delete = async (id: string): Promise<StoreUser> => await this.execute(
-    'DELETE FROM store_user WHERE id=($1)',
+    'DELETE FROM store_user WHERE id=($1) RETURNING *',
     'rows.0',
     [id]
   );

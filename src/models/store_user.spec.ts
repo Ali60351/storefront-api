@@ -21,20 +21,31 @@ describe('Test the user model', () => {
     expect(result.last_name).toBe(user.last_name);
   })
 
-  // it('Expects show with id 1 to contain our product', async () => {
-  //   const result = await productStore.show('1');
-  //   expect(result.name).toBe(product.name);
-  //   expect(result.price).toBe(product.price);
-  // });
+  it('Expects show with id 1 to contain our user', async () => {
+    const result = await userStore.show('1');
+    expect(result.first_name).toBe(user.first_name);
+    expect(result.last_name).toBe(user.last_name);
+  });
 
-  // it('Expects delete with id 1 to contain our product', async () => {
-  //   const result = await productStore.delete('1');
-  //   expect(result.name).toBe(product.name);
-  //   expect(result.price).toBe(product.price);
-  // });
+  it('Expects authenticate with our user to return our user', async () => {
+    const result = await userStore.authenticate(user);
 
-  // it('Expects index to return [] after deletion', async () => {
-  //   const result = await productStore.index();
-  //   expect(result).toEqual([]);
-  // })
+    if (typeof result === 'string') {
+      throw Error('Unexpected type!')
+    }
+
+    expect(result.first_name).toBe(user.first_name);
+    expect(result.last_name).toBe(user.last_name);
+  });
+
+  it('Expects delete with id 1 to contain our product', async () => {
+    const result = await userStore.delete('1');
+    expect(result.first_name).toBe(user.first_name);
+    expect(result.last_name).toBe(user.last_name);
+  });
+
+  it('Expects index to return [] after deletion', async () => {
+    const result = await userStore.index();
+    expect(result).toEqual([]);
+  })
 });
