@@ -10,6 +10,8 @@ const user: StoreUser = {
 };
 
 describe('Test the user model', () => {
+  let userId: number;
+
   it('Expects index to return [] on empty database', async () => {
     const result = await userStore.index();
     expect(result).toEqual([]);
@@ -17,12 +19,15 @@ describe('Test the user model', () => {
 
   it('Expects create to return sent values', async () => {
     const result = await userStore.create(user);
+
+    userId = result.id;
+
     expect(result.first_name).toBe(user.first_name);
     expect(result.last_name).toBe(user.last_name);
   })
 
-  it('Expects show with id 1 to contain our user', async () => {
-    const result = await userStore.show('1');
+  it('Expects show with userId to contain our user', async () => {
+    const result = await userStore.show(String(userId));
     expect(result.first_name).toBe(user.first_name);
     expect(result.last_name).toBe(user.last_name);
   });
@@ -48,8 +53,8 @@ describe('Test the user model', () => {
     expect(result).toBe('Incorrect password!');
   });
 
-  it('Expects delete with id 1 to contain our product', async () => {
-    const result = await userStore.delete('1');
+  it('Expects delete with userId to contain our product', async () => {
+    const result = await userStore.delete(String(userId));
     expect(result.first_name).toBe(user.first_name);
     expect(result.last_name).toBe(user.last_name);
   });

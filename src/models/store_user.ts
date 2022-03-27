@@ -17,7 +17,7 @@ export default class UserStore extends Model {
     [id]
   );
 
-  create = async (user: StoreUser): Promise<StoreUser> => {
+  create = async (user: StoreUser): Promise<Required<StoreUser>> => {
     const password = bcrypt.hashSync(user.password + pepper, saltRounds);
 
     return await this.execute(

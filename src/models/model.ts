@@ -12,6 +12,7 @@ export default class Model {
         return get(result, path);
       }
     } catch (e) {
+      console.log(e);
       throw Error(`Unable to execute sql ${sql}`);
     }
   };

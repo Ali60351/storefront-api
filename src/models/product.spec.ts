@@ -9,6 +9,8 @@ const product: Product = {
 };
 
 describe('Test the product model', () => {
+  let productId: number;
+
   it('Expects index to return [] on empty database', async () => {
     const result = await productStore.index();
     expect(result).toEqual([]);
@@ -16,18 +18,21 @@ describe('Test the product model', () => {
 
   it('Expects create to return sent values', async () => {
     const result = await productStore.create(product);
+
+    productId = result.id;
+
     expect(result.name).toBe(product.name);
     expect(result.price).toBe(product.price);
   })
 
-  it('Expects show with id 1 to contain our product', async () => {
-    const result = await productStore.show('1');
+  it('Expects show with productId to contain our product', async () => {
+    const result = await productStore.show(String(productId));
     expect(result.name).toBe(product.name);
     expect(result.price).toBe(product.price);
   });
 
-  it('Expects delete with id 1 to contain our product', async () => {
-    const result = await productStore.delete('1');
+  it('Expects delete with productId to contain our product', async () => {
+    const result = await productStore.delete(String(productId));
     expect(result.name).toBe(product.name);
     expect(result.price).toBe(product.price);
   });

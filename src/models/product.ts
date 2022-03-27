@@ -13,7 +13,7 @@ export default class ProductStore extends Model {
     [id]
   );
 
-  create = async (product: Product): Promise<Product> => {
+  create = async (product: Product): Promise<Required<Product>> => {
     if (product.category) {
       return await this.execute(
         'INSERT INTO product (name, price, category) VALUES($1, $2, $3) RETURNING *',

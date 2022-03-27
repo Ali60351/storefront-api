@@ -13,7 +13,7 @@ export default class UserStore extends Model {
     [id]
   );
 
-  create = async (productOrder: ProductOrder): Promise<ProductOrder> => {
+  create = async (productOrder: ProductOrder): Promise<Required<ProductOrder>> => {
     return await this.execute(
       'INSERT INTO product_order (product_id, quantity, status, user_id) VALUES($1, $2, $3, $4) RETURNING *',
       'rows.0',
@@ -22,7 +22,7 @@ export default class UserStore extends Model {
   }
 
   delete = async (id: string): Promise<ProductOrder> => await this.execute(
-    'DELETE FROM product_order WHERE id=($1)',
+    'DELETE FROM product_order WHERE id=($1) RETURNING *',
     'rows.0',
     [id]
   );
