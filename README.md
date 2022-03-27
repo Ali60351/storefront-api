@@ -57,3 +57,10 @@ SALT_ROUNDS=10
 
 JWT_SECRET=jwt-secret-password-123
 ```
+
+## Usage
+
+1. Run `nvm use` (Optional)
+2. `npm i`
+3. `npm run migrate`
+4. `npm run start` or `npm run test`
