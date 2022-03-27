@@ -32,8 +32,11 @@ describe('Test the product order model', () => {
   let productOrderId: number;
 
   beforeAll(async () => {
-    userId = (await productStore.create(product))['id'];
-    productId = (await userStore.create(user))['id'];
+    userId = (await userStore.create(user))['id'];
+    productId = (await productStore.create(product))['id'];
+
+    productOrder.user_id = userId;
+    productOrder.product_id = productId;
   })
 
   it('Expects index to return [] on empty database', async () => {

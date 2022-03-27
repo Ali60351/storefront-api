@@ -28,6 +28,8 @@ app.post('/', validateUser, async (req, res) => {
     const user: StoreUser = await store.create({ first_name, last_name, password });
 
     const token = jwt.sign({ user, type: 'USER_AUTH' }, secret);
+
+    res.status(201);
     res.json(token);
   } catch (err) {
     res.status(400)
