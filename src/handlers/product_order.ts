@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
 import { requireAuth } from './validators';
@@ -10,7 +10,7 @@ const store = new ProductOrderStore();
 
 const secret = process.env.JWT_SECRET as string;
 
-app.post('/', requireAuth, async (req, res) => {
+app.post('/', requireAuth, async (req: Request, res: Response) => {
   try {
     const productOrder: ProductOrder = req.body;
     const authHeader = req.headers.authorization as string;

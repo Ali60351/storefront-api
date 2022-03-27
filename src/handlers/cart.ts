@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
 import { requireAuth } from './validators';
@@ -10,7 +10,7 @@ const cartService = new CartService();
 
 const secret = process.env.JWT_SECRET as string;
 
-app.get('/', requireAuth, async (req, res) => {
+app.get('/', requireAuth, async (req: Request, res: Response) => {
   const authHeader = req.headers.authorization as string;
   const [_, token] = authHeader.split(' ');
   const verifiedToken = jwt.verify(token, secret) as AuthToken;

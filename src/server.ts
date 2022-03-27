@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 import cors from 'cors';
 import bodyParser from 'body-parser'
 
@@ -18,7 +18,7 @@ app.use('/api/product', productRoutes);
 app.use('/api/product-order', productOrderRoutes);
 app.use('/api/cart', cartRoutes);
 
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
     res.send('Hello World!')
 })
 

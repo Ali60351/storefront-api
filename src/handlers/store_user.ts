@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 import jwt from 'jsonwebtoken';
 
 import UserStore from '../models/store_user';
@@ -10,19 +10,19 @@ const store = new UserStore();
 
 const secret = process.env.JWT_SECRET as string;
 
-app.get('/', requireAuth, async (req, res) => {
+app.get('/', requireAuth, async (req: Request, res: Response) => {
   const results = await store.index();
   res.json(results);
 });
 
-app.get('/:id', requireAuth, async (req, res) => {
+app.get('/:id', requireAuth, async (req: Request, res: Response) => {
   const { id } = req.params;
 
   const results = await store.show(id);
   res.json(results);
 });
 
-app.post('/', validateUser, async (req, res) => {
+app.post('/', validateUser, async (req: Request, res: Response) => {
   try {
     const { first_name, last_name, password } = req.body;
     const user: StoreUser = await store.create({ first_name, last_name, password });
@@ -37,14 +37,14 @@ app.post('/', validateUser, async (req, res) => {
   }
 });
 
-app.delete('/:id', requireAuth, async (req, res) => {
+app.delete('/:id', requireAuth, async (req: Request, res: Response) => {
   const { id } = req.params;
 
   const results = await store.delete(id);
   res.json(results);
 });
 
-app.post('/auth', validateUser, async (req, res) => {
+app.post('/auth', validateUser, async (req: Request, res: Response) => {
   const { first_name, last_name, password } = req.body;
   const result = await store.authenticate({ first_name, last_name, password });
 
