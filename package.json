@@ -4,9 +4,10 @@
   "description": "",
   "main": "src/server.ts",
   "scripts": {
-    "watch": "nodemon src/server.ts",
+    "run": "NODE_ENV=development ts-node src/server.ts",
+    "watch": "NODE_ENV=development nodemon src/server.ts",
     "test": "db-migrate --env test reset && db-migrate --env test up && NODE_ENV=test ts-node node_modules/jasmine/bin/jasmine",
-    "tsc": "tsc"
+    "migrate": "NODE_ENV=development db-migrate --env dev up"
   },
   "author": "Udacity",
   "license": "ISC",
