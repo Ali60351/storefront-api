@@ -38,6 +38,16 @@ describe('Test the user model', () => {
     expect(result.last_name).toBe(user.last_name);
   });
 
+  it('Expects authenticate with incorrect password to fail auth', async () => {
+    const result = await userStore.authenticate({...user, password: '123'});
+
+    if (typeof result !== 'string') {
+      throw Error('Unexpected type!')
+    }
+
+    expect(result).toBe('Incorrect password!');
+  });
+
   it('Expects delete with id 1 to contain our product', async () => {
     const result = await userStore.delete('1');
     expect(result.first_name).toBe(user.first_name);
