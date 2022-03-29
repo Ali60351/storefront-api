@@ -3,13 +3,15 @@ import request from 'supertest';
 import app from '../server';
 
 import ProductStore from '../models/product';
+import UserOrderStore from '../models/user_order';
 import ProductOrderStore from '../models/product_order';
 
-import { AuthToken, Product, ProductOrder, StoreUser } from '../types';
+import { AuthToken, Product, StoreUser, UserOrder, ProductOrder, CartEntry } from '../types';
 
 const secret = process.env.JWT_SECRET as string;
 
 const productStore = new ProductStore();
+const userOrderStore = new UserOrderStore();
 const productOrderStore = new ProductOrderStore();
 
 const user: StoreUser = {
@@ -23,17 +25,22 @@ const product: Product = {
   price: 5
 };
 
-const productOrder: ProductOrder = {
-  'product_id': 1,
+const userOrder: UserOrder = {
   'user_id': 1,
-  'quantity': 1,
   'status': 'active'
+};
+
+const productOrder: ProductOrder = {
+  'order_id': 1,
+  'product_id': 1,
+  'quantity': 1,
 }
 
 describe('Test API endpoints for Cart', () => {
   let token: string;
   let productId: number;
   let userId: number;
+  let userOrderId: number;
   let productOrderId: number;
 
   beforeAll(async () => {
@@ -46,8 +53,13 @@ describe('Test API endpoints for Cart', () => {
     userId = authToken.user.id;
     productId = createdProduct.id;
 
-    productOrder.user_id = userId;
+    userOrder.user_id = userId;
+
+    const createdUserOrder = await userOrderStore.create(userOrder);
+    userOrderId = createdUserOrder.id;
+
     productOrder.product_id = productId;
+    productOrder.order_id = userOrderId;
 
     const createdProductOrder = await productOrderStore.create(productOrder);
     productOrderId = createdProductOrder.id;
@@ -55,24 +67,23 @@ describe('Test API endpoints for Cart', () => {
 
   it('expects 200 and our product order in cart', async () => {
     const response = await request(app).get('/api/cart/').set('Authorization', `Bearer ${token}`);
-
-    const fetchedCart: ProductOrder[] = response.body;
+    const fetchedCart: CartEntry[] = response.body;
 
     expect(response.statusCode).toBe(200);
     expect(response.body).toHaveSize(1);
 
-    const fetchedProductOrder = fetchedCart[0];
+    const userCart = fetchedCart[0];
 
-    expect(fetchedProductOrder.user_id).toBe(userId);
-    expect(fetchedProductOrder.product_id).toBe(productId);
-    expect(fetchedProductOrder.quantity).toBe(productOrder.quantity);
-    expect(fetchedProductOrder.status).toBe(productOrder.status);
+    expect(userCart.user_id).toBe(userId);
+    expect(userCart.product_id).toBe(productId);
+    expect(userCart.quantity).toBe(productOrder.quantity);
+    expect(userCart.status).toBe(userOrder.status);
   });
 
   afterAll(async () => {
-    const authToken = jwt.verify(token, secret) as AuthToken;
     await productOrderStore.delete(String(productOrderId));
-    await request(app).delete(`/api/user/${authToken.user.id}`).set('Authorization', `Bearer ${token}`);
+    await userOrderStore.delete(String(userOrderId));
+    await request(app).delete(`/api/user/${userId}`).set('Authorization', `Bearer ${token}`);
     await productStore.delete(String(productId));
   })
 });

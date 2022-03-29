@@ -1,7 +1,7 @@
 import Model from './model';
 import { ProductOrder } from '../types';
 
-export default class UserStore extends Model {
+export default class ProductOrderStore extends Model {
   index = async (): Promise<ProductOrder[]> => await this.execute(
     'SELECT * FROM product_order',
     'rows'
@@ -15,9 +15,9 @@ export default class UserStore extends Model {
 
   create = async (productOrder: ProductOrder): Promise<Required<ProductOrder>> => {
     return await this.execute(
-      'INSERT INTO product_order (product_id, quantity, status, user_id) VALUES($1, $2, $3, $4) RETURNING *',
+      'INSERT INTO product_order (order_id, product_id, quantity) VALUES($1, $2, $3) RETURNING *',
       'rows.0',
-      [productOrder.product_id, productOrder.quantity, productOrder.status, productOrder.user_id]
+      [productOrder.order_id, productOrder.product_id, productOrder.quantity]
     );
   }
 

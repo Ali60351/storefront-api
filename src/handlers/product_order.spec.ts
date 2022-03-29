@@ -4,13 +4,15 @@ import app from '../server';
 
 import ProductStore from '../models/product';
 import ProductOrderStore from '../models/product_order';
+import UserOrderStore from '../models/user_order';
 
-import { AuthToken, Product, ProductOrder, StoreUser } from '../types';
+import { AuthToken, Product, ProductOrder, StoreUser, UserOrder } from '../types';
 
 const secret = process.env.JWT_SECRET as string;
 
 const productStore = new ProductStore();
 const productOrderStore = new ProductOrderStore();
+const userOrderStore = new UserOrderStore();
 
 const user: StoreUser = {
   'first_name': 'Zam',
@@ -23,17 +25,22 @@ const product: Product = {
   price: 5
 };
 
-const productOrder: ProductOrder = {
-  'product_id': 1,
+const userOrder: UserOrder = {
   'user_id': 1,
-  'quantity': 1,
   'status': 'active'
+};
+
+const productOrder: ProductOrder = {
+  'order_id': 1,
+  'product_id': 1,
+  'quantity': 1,
 }
 
 describe('Test API endpoints for Product Order', () => {
   let token: string;
   let productId: number;
   let userId: number;
+  let userOrderId: number;
   let productOrderId: number;
 
   beforeAll(async () => {
@@ -46,8 +53,13 @@ describe('Test API endpoints for Product Order', () => {
     userId = authToken.user.id;
     productId = createdProduct.id;
 
-    productOrder.user_id = userId;
+    userOrder.user_id = userId;
+
+    const createdUserOrder = await userOrderStore.create(userOrder);
+    userOrderId = createdUserOrder.id;
+
     productOrder.product_id = productId;
+    productOrder.order_id = userOrderId;
   })
 
   it('expects 201 and our product order on create', async () => {
@@ -60,16 +72,14 @@ describe('Test API endpoints for Product Order', () => {
     productOrderId = createdProductOrder.id;
 
     expect(response.statusCode).toBe(201);
-    expect(createdProductOrder.user_id).toBe(userId);
     expect(createdProductOrder.product_id).toBe(productId);
     expect(createdProductOrder.quantity).toBe(productOrder.quantity);
-    expect(createdProductOrder.status).toBe(productOrder.status);
   });
 
   afterAll(async () => {
-    const authToken = jwt.verify(token, secret) as AuthToken;
     await productOrderStore.delete(String(productOrderId));
-    await request(app).delete(`/api/user/${authToken.user.id}`).set('Authorization', `Bearer ${token}`);
+    await userOrderStore.delete(String(userOrderId));
+    await request(app).delete(`/api/user/${userId}`).set('Authorization', `Bearer ${token}`);
     await productStore.delete(String(productId));
   })
 });

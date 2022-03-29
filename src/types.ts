@@ -17,8 +17,21 @@ export interface Product {
 export interface ProductOrder {
   id?: number;
   product_id: number;
+  order_id: number;
   quantity: number;
+}
+
+export interface UserOrder {
+  id?: number;
   user_id: number;
+  status: 'active' | 'complete'
+}
+
+export interface CartEntry {
+  user_id: number;
+  order_id: number;
+  product_id: number;
+  quantity: number;
   status: 'active' | 'complete'
 }
 
