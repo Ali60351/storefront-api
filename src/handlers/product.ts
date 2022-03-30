@@ -8,23 +8,38 @@ const app = express.Router();
 const store = new ProductStore();
 
 app.get('/', async (req: Request, res: Response) => {
-  const results = await store.index();
-  res.json(results);
+  try {
+    const results = await store.index();
+    res.json(results);
+  } catch (err) {
+    res.status(500);
+    res.json({ "error": "Unable to fetch products." });
+  }
 });
 
 app.get('/:id', async (req: Request, res: Response) => {
-  const { id } = req.params;
+  try {
+    const { id } = req.params;
+    const results = await store.show(id);
 
-  const results = await store.show(id);
-  res.json(results);
+    res.json(results);
+  } catch (err) {
+    res.status(500);
+    res.json({ "error": "Unable to fetch product." });
+  }
 });
 
 app.post('/', requireAuth, validateProduct, async (req: Request, res: Response) => {
-  const product: Product = req.body;
-  const results = await store.create(product);
+  try {
+    const product: Product = req.body;
+    const results = await store.create(product);
 
-  res.status(201);
-  res.json(results);
+    res.status(201);
+    res.json(results);
+  } catch (err) {
+    res.status(500);
+    res.json({ "error": "Unable to add product." });
+  }
 });
 
 export default app;

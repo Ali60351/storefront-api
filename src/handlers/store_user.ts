@@ -11,15 +11,25 @@ const store = new UserStore();
 const secret = process.env.JWT_SECRET as string;
 
 app.get('/', requireAuth, async (req: Request, res: Response) => {
-  const results = await store.index();
-  res.json(results);
+  try {
+    const results = await store.index();
+    res.json(results);
+  } catch (err) {
+    res.status(500);
+    res.json({ "error": "Unable to fetch users." });
+  }
 });
 
 app.get('/:id', requireAuth, async (req: Request, res: Response) => {
-  const { id } = req.params;
+  try {
+    const { id } = req.params;
 
-  const results = await store.show(id);
-  res.json(results);
+    const results = await store.show(id);
+    res.json(results);
+  } catch (err) {
+    res.status(500);
+    res.json({ "error": "Unable to fetch user." });
+  }
 });
 
 app.post('/', validateUser, async (req: Request, res: Response) => {
@@ -32,27 +42,37 @@ app.post('/', validateUser, async (req: Request, res: Response) => {
     res.status(201);
     res.json(token);
   } catch (err) {
-    res.status(400)
-    res.json(err)
+    res.status(500);
+    res.json({ "error": "Unable to create user." });
   }
 });
 
 app.delete('/:id', requireAuth, async (req: Request, res: Response) => {
-  const { id } = req.params;
+  try {
+    const { id } = req.params;
 
-  const results = await store.delete(id);
-  res.json(results);
+    const results = await store.delete(id);
+    res.json(results);
+  } catch (err) {
+    res.status(500);
+    res.json({ "error": "Unable to delete user." });
+  }
 });
 
 app.post('/auth', validateUser, async (req: Request, res: Response) => {
-  const { first_name, last_name, password } = req.body;
-  const result = await store.authenticate({ first_name, last_name, password });
+  try {
+    const { first_name, last_name, password } = req.body;
+    const result = await store.authenticate({ first_name, last_name, password });
 
-  if (typeof result === 'string') {
-    res.json(result);
-  } else {
-    const token = jwt.sign({ user: result, type: 'USER_AUTH' }, secret);
-    res.json(token);
+    if (typeof result === 'string') {
+      res.json(result);
+    } else {
+      const token = jwt.sign({ user: result, type: 'USER_AUTH' }, secret);
+      res.json(token);
+    }
+  } catch (err) {
+    res.status(500);
+    res.json({ "error": "Unable to authorize user." });
   }
 })
 

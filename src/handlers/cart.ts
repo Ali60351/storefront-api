@@ -11,12 +11,17 @@ const cartService = new CartService();
 const secret = process.env.JWT_SECRET as string;
 
 app.get('/', requireAuth, async (req: Request, res: Response) => {
-  const authHeader = req.headers.authorization as string;
-  const [_, token] = authHeader.split(' ');
-  const verifiedToken = jwt.verify(token, secret) as AuthToken;
+  try {
+    const authHeader = req.headers.authorization as string;
+    const [_, token] = authHeader.split(' ');
+    const verifiedToken = jwt.verify(token, secret) as AuthToken;
 
-  const results = await cartService.getOrdersForUser(String(verifiedToken.user.id));
-  res.json(results);
+    const results = await cartService.getOrdersForUser(String(verifiedToken.user.id));
+    res.json(results);
+  } catch (err) {
+    res.status(500);
+    res.json({ "error": "Unable to fetch user cart." });
+  }
 });
 
 export default app;
