@@ -82,6 +82,8 @@ CREATE DATABASE storefront;
 CREATE DATABASE storefront_test;
 ```
 
+After fresh databases are created run `npm run migrate` to run all migrations.
+
 ## Database Schema
 
 ```sql
